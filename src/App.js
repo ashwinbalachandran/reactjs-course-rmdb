@@ -6,14 +6,12 @@ import Header from "./components/Header";
 // Styles
 import { GlobalStyle } from "./GlobalStyle";
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      Start here.
-      <GlobalStyle />
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <GlobalStyle />
+    <Header />
+    Start here!
+  </div>
+);
 
 export default App;

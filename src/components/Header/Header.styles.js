@@ -14,7 +14,7 @@ export const Content = styled.div`
   margin: 0 auto;
 `;
 
-export const LogoImg = styled.div`
+export const LogoImg = styled.img`
   width: 200px;
 
   @media screen and (max-width: 500px) {
@@ -22,7 +22,7 @@ export const LogoImg = styled.div`
   }
 `;
 
-export const TMDBLogoImg = styled.div`
+export const TMDBLogoImg = styled.img`
   width: 100px;
 
   @media screen and (max-width: 500px) {
