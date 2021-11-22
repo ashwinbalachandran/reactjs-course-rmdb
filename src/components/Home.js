@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 // Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 // Components
+import HeroImage from "./HeroImage";
+import Grid from "./Grid";
 
 // Hook
+import { useHomeFetch } from "../hooks/useHomeFetch";
 
 // Image
 import NoImage from "../images/no_image.jpg";
 
 //Always name components starting with a capital letter
 //Functional components allow multiple states
+//Components re-renders everytime any of these state changes,
+//but it internally diffs the values and only re-renders if the value has changed
 const Home = () => {
-  const [state, setState] = useState();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  return <div>Home Page</div>;
+  const { state, loading, error } = useHomeFetch();
+  console.log(state);
+  return (
+    <>
+      {state.results[0] ? (
+        <HeroImage
+          image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
+          title={state.results[0]?.original_title}
+          text={state.results[0]?.overview}
+        />
+      ) : null}
+      <Grid header="Popular Movies">
+        {state.results.map((movie) => (
+          <div key={movie.id}>{movie.title}</div>
+        ))}
+      </Grid>
+    </>
+  );
 };
 
 export default Home;
