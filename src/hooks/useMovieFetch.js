@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import API from '../API'
 
 export const useMovieFetch = (movieId) => {
@@ -6,25 +6,24 @@ export const useMovieFetch = (movieId) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
-    const fetchMovie = useCallback(async () => {
-        try {
-            setLoading(true)
-            setError(false)
-            const movie = await API.fetchMovie(movieId)
-            const credits = await API.fetchCredits(movieId)
-            // Get directors only(but not really)
-            const directors = credits.crew.filter(
-                (member) => member.job === 'Director'
-            )
-            setState({ ...movie, actors: credits.cast, directors })
-            setLoading(false)
-        } catch (error) {
-            setError(true)
-        }
-    }, [movieId])
-
     useEffect(() => {
+        const fetchMovie = async () => {
+            try {
+                setLoading(true)
+                setError(false)
+                const movie = await API.fetchMovie(movieId)
+                const credits = await API.fetchCredits(movieId)
+                // Get directors only(but not really)
+                const directors = credits.crew.filter(
+                    (member) => member.job === 'Director'
+                )
+                setState({ ...movie, actors: credits.cast, directors })
+                setLoading(false)
+            } catch (error) {
+                setError(true)
+            }
+        }
         fetchMovie()
-    }, [movieId, fetchMovie])
+    }, [movieId])
     return { state, loading, error }
 }
