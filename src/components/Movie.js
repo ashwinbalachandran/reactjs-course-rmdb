@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 // Config
-import { IMAGE_BASE_URL, PSOTER_SIZE } from '../config'
+import { IMAGE_BASE_URL, POSTER_SIZE } from '../config'
 // Components
 import Grid from './Grid'
 import Spinner from './Spinner'
